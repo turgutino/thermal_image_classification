@@ -9,7 +9,7 @@ import random
 import torch
 
 # ===============================
-# 1. Dataset və Transform
+# 1. Dataset and Transform
 # ===============================
 data_path = "dataset/datasets/thermal_classification_cropped"
 
@@ -18,30 +18,30 @@ transform = transforms.Compose([
     transforms.ToTensor()
 ])
 
-# Dataset-i oxu
+
 dataset = datasets.ImageFolder(root=data_path, transform=transform)
 
 print(f"Total number of images in the dataset: {len(dataset)}")
 print(f"Classes: {dataset.classes}")
 
 # ===============================
-# 2. Hər sinifdən 4 təsadüfi şəkil seç
+# 2. Choose 4 random pictures from each class
 # ===============================
 class_names = dataset.classes
 class_indices = {cls: [] for cls in class_names}
 
-# Hər sinifin indekslərini topla
+
 for idx, (_, label) in enumerate(dataset.samples):
     class_name = class_names[label]
     class_indices[class_name].append(idx)
 
-# Hər sinifdən 4 şəkil təsadüfi seç
+
 samples_to_show = []
 for cls in class_names:
     samples_to_show.extend(random.sample(class_indices[cls], 4))
 
 # ===============================
-# 3. Şəkilləri göstər
+# 3. Show pictures
 # ===============================
 fig, axes = plt.subplots(2, 4, figsize=(12, 6))
 fig.suptitle("Thermal Classification Dataset Overview", fontsize=16, weight='bold')
